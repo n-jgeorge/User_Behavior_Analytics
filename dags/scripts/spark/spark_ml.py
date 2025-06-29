@@ -6,20 +6,10 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import array_contains, lit
 
 
-def random_text_classifier(
+def classifier(
     input_loc: str, output_loc: str, run_id: str
 ) -> None:
-    """
-    This is a dummy function to show how to use spark, It is supposed to mock
-    the following steps
-        1. clean input data
-        2. use a pre-trained model to make prediction
-        3. write predictions to a HDFS output
-
-    Since this is meant as an example, we are going to skip building a model,
-    instead we are naively going to mark reviews having the text "good" as
-    positive and the rest as negative
-    """
+   
 
     # read input
     df_raw = spark.read.option("header", True).csv(input_loc)
@@ -80,6 +70,6 @@ if __name__ == "__main__":
         .config("spark.hadoop.fs.s3a.path.style.access", "true")
         .getOrCreate()
     )
-    random_text_classifier(
+    classifier(
         input_loc=args.input, output_loc=args.output, run_id=args.run_id
     )
