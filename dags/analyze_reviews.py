@@ -93,7 +93,7 @@ with DAG(
         },
     )
 
-    def create_user_behaviour_metric():
+    def behaviour_metric():
         time.sleep(30)
         q = """
         with up as (
@@ -125,7 +125,7 @@ with DAG(
 
     get_user_behaviour_metric = PythonOperator(
         task_id="get_user_behaviour_metric",
-        python_callable=create_user_behaviour_metric,
+        python_callable=behaviour_metric,
     )
 
     markdown_path = "/opt/airflow/dags/scripts/dashboard/"
