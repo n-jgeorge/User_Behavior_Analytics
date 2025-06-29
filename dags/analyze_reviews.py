@@ -16,7 +16,7 @@ from airflow.providers.amazon.aws.transfers.local_to_s3 import (
 from airflow.providers.amazon.aws.transfers.sql_to_s3 import SqlToS3Operator
 
 
-def get_s3_folder(
+def amazon_storage(
     s3_bucket, s3_folder, local_folder="/opt/airflow/temp/s3folder/"
 ):
     # TODO: Move AWS credentials to env variables
@@ -77,7 +77,7 @@ with DAG(
 
     get_movie_review_to_warehouse = PythonOperator(
         task_id="get_movie_review_to_warehouse",
-        python_callable=get_s3_folder,
+        python_callable=amazon_storage,
         op_kwargs={
             "s3_bucket": "user-analytics",
             "s3_folder": "clean/movie_review",
@@ -86,7 +86,7 @@ with DAG(
 
     get_user_purchase_to_warehouse = PythonOperator(
         task_id="get_user_purchase_to_warehouse",
-        python_callable=get_s3_folder,
+        python_callable=amazon_storage,
         op_kwargs={
             "s3_bucket": "user-analytics",
             "s3_folder": "raw/user_purchase",
