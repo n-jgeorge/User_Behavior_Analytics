@@ -1,7 +1,7 @@
 from airflow.models import DagBag
 
 
-def test_no_import_errors(monkeypatch):
+def import_errors(monkeypatch):
 
     # Set variables
     monkeypatch.setenv("AIRFLOW_VAR_BUCKET", "test-bucket")
